@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gaza Mutual Aid — Verified Fundraisers</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,600;1,400&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;1,8..60,300&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --cream: #f5f0e8;
+    --paper: #faf7f2;
+    --ink: #1a1612;
+    --ink-soft: #3d3530;
+    --ink-muted: #7a6e65;
+    --olive: #5c6b3a;
+    --olive-light: #8a9c5a;
+    --clay: #b05a3a;
+    --clay-light: #d4845a;
+    --rule: #d4c9b8;
+    --highlight: #f0e8d0;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background-color: var(--paper);
+    color: var(--ink);
+    font-family: 'Source Serif 4', Georgia, serif;
+    font-weight: 300;
+    font-size: 17px;
+    line-height: 1.8;
+  }
+
+  /* Subtle paper texture overlay */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3CfeColorMatrix type='saturate' values='0'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    pointer-events: none;
+    z-index: 1000;
+    opacity: 0.4;
+  }
+
+  /* TOP BANNER */
+  .top-bar {
+    background-color: var(--olive);
+    color: #e8edd8;
+    text-align: center;
+    padding: 10px 24px;
+    font-size: 0.82em;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    font-family: 'Source Serif 4', serif;
+    font-weight: 400;
+  }
+
+  /* HEADER */
+  header {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 52px 28px 36px;
+    border-bottom: 2px solid var(--ink);
+  }
+
+  .issue-line {
+    font-size: 0.78em;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--clay);
+    font-weight: 400;
+    margin-bottom: 16px;
+  }
+
+  h1 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: clamp(2.2em, 5vw, 3.4em);
+    font-weight: 600;
+    line-height: 1.1;
+    color: var(--ink);
+    margin-bottom: 18px;
+    letter-spacing: -0.01em;
+  }
+
+  h1 em {
+    font-style: italic;
+    font-weight: 400;
+    color: var(--clay);
+  }
+
+  .header-body {
+    font-size: 1.05em;
+    color: var(--ink-soft);
+    max-width: 620px;
+    margin-bottom: 20px;
+    border-left: 3px solid var(--clay-light);
+    padding-left: 16px;
+  }
+
+  .header-body a {
+    color: var(--clay);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+
+  .compiler-note {
+    font-size: 0.85em;
+    color: var(--ink-muted);
+    font-style: italic;
+    margin-top: 10px;
+  }
+
+  /* MAIN LAYOUT */
+  main {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 0 28px 80px;
+  }
+
+  /* SECTION HEADERS */
+  .section {
+    margin-top: 56px;
+  }
+
+  .section-label {
+    display: flex;
+    align-items: baseline;
+    gap: 14px;
+    margin-bottom: 6px;
+  }
+
+  .section-num {
+    font-family: 'Playfair Display', serif;
+    font-size: 0.78em;
+    color: var(--ink-muted);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    flex-shrink: 0;
+  }
+
+  .section-rule {
+    flex: 1;
+    height: 1px;
+    background: var(--rule);
+  }
+
+  h2 {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 1.55em;
+    font-weight: 600;
+    color: var(--ink);
+    margin-bottom: 4px;
+    letter-spacing: -0.01em;
+  }
+
+  .section-credit {
+    font-size: 0.84em;
+    color: var(--ink-muted);
+    margin-bottom: 22px;
+    font-style: italic;
+  }
+
+  .section-credit a {
+    color: var(--olive);
+    text-decoration: none;
+    border-bottom: 1px solid var(--olive-light);
+  }
+
+  .section-credit a:hover {
+    color: var(--clay);
+    border-bottom-color: var(--clay);
+  }
+
+  /* ENTRIES */
+  .entries {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+  }
+
+  .entry {
+    display: grid;
+    grid-template-columns: 1fr auto;
+    align-items: baseline;
+    gap: 12px;
+    padding: 10px 0;
+    border-bottom: 1px solid var(--rule);
+    transition: background 0.15s;
+  }
+
+  .entry:first-child {
+    border-top: 1px solid var(--rule);
+  }
+
+  .entry:hover {
+    background: var(--highlight);
+    margin: 0 -12px;
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .entry-name {
+    font-size: 0.96em;
+    color: var(--ink);
+    font-weight: 400;
+    line-height: 1.5;
+  }
+
+  .entry-name small {
+    font-size: 0.8em;
+    color: var(--ink-muted);
+    font-style: italic;
+    font-weight: 300;
+    display: block;
+    margin-top: 1px;
+  }
+
+  .entry-link {
+    font-size: 0.8em;
+    color: var(--olive);
+    text-decoration: none;
+    white-space: nowrap;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.15s, color 0.15s;
+    flex-shrink: 0;
+  }
+
+  .entry-link:hover {
+    color: var(--clay);
+    border-bottom-color: var(--clay);
+  }
+
+  .tag {
+    display: inline-block;
+    font-size: 0.7em;
+    background: var(--cream);
+    color: var(--ink-muted);
+    border: 1px solid var(--rule);
+    padding: 1px 7px;
+    border-radius: 2px;
+    margin-left: 7px;
+    vertical-align: middle;
+    font-family: 'Source Serif 4', serif;
+    letter-spacing: 0.04em;
+    position: relative;
+    top: -1px;
+  }
+
+  /* INSTAGRAM NOTE ENTRY */
+  .entry-note {
+    font-size: 0.9em;
+    color: var(--ink-soft);
+    font-style: italic;
+    padding: 14px 0 10px;
+    border-bottom: 1px solid var(--rule);
+    border-top: 1px solid var(--rule);
+  }
+
+  .entry-note a {
+    color: var(--olive);
+    text-decoration: none;
+    border-bottom: 1px solid var(--olive-light);
+  }
+
+  /* FOOTER */
+  footer {
+    max-width: 780px;
+    margin: 0 auto;
+    padding: 32px 28px 48px;
+    border-top: 2px solid var(--ink);
+  }
+
+  .footer-inner {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 24px;
+    align-items: flex-start;
+    justify-content: space-between;
+  }
+
+  .footer-left {
+    font-size: 0.83em;
+    color: var(--ink-muted);
+    max-width: 420px;
+    line-height: 1.7;
+  }
+
+  .footer-left strong {
+    color: var(--ink-soft);
+    font-weight: 400;
+  }
+
+  .footer-credits {
+    font-size: 0.83em;
+    color: var(--ink-muted);
+    text-align: right;
+    line-height: 2;
+  }
+
+  .footer-credits a {
+    color: var(--olive);
+    text-decoration: none;
+    border-bottom: 1px solid var(--olive-light);
+    display: block;
+  }
+
+  .footer-credits a:hover {
+    color: var(--clay);
+  }
+
+  @media (max-width: 580px) {
+    h1 { font-size: 2em; }
+    .entry { grid-template-columns: 1fr; gap: 4px; }
+    .entry-link { font-size: 0.78em; }
+    .footer-credits { text-align: left; }
+  }
+</style>
+</head>
+<body>
+
+<div class="top-bar">All campaigns verified &mdash; Please share freely &mdash; None of this belongs to the compiler</div>
+
+<header>
+  <p class="issue-line">Mutual Aid &mdash; Gaza &mdash; Compiled March 2026</p>
+  <h1>Stand with <em>Palestinian</em> Families</h1>
+  <p class="header-body">
+    This is a compiled list of verified fundraisers for families in Gaza. A one-time donation helps, but monthly giving allows families to plan ahead and access ongoing resources. If you want to be paired directly with a Palestinian family for monthly sponsorship at any amount, DM <a href="https://www.instagram.com/sendlovetopalestine/" target="_blank">@sendlovetopalestine</a>. Even $5 a month makes a difference.
+  </p>
+  <p class="compiler-note">This document was compiled from publicly shared mutual aid lists. Full credit belongs to the original aggregators listed under each section. The compiler of this document claims no ownership.</p>
+</header>
+
+<main>
+
+  <!-- SECTION 1 -->
+  <div class="section">
+    <div class="section-label">
+      <span class="section-num">Source 01</span>
+      <div class="section-rule"></div>
+    </div>
+    <h2>@sophiedituri</h2>
+    <p class="section-credit">Aggregated by <a href="https://linktr.ee/sophiedituri" target="_blank">linktr.ee/sophiedituri</a> &mdash; follow and support her work.</p>
+    <div class="entries">
+      <div class="entry"><span class="entry-name">Mohamed Amoudi &amp; family<span class="tag">GFM</span></span><a class="entry-link" href="https://www.gofundme.com/f/8c8xm-support-mohameds-familys-journey-to-safety" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">The Abu-Daqqa Family<span class="tag">Chuffed</span></span><a class="entry-link" href="https://chuffed.org/project/122617-help-my-family-start-a-new-life" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Hala / Hope4Hala<span class="tag">Chuffed</span></span><a class="entry-link" href="https://chuffed.org/project/134061-help-hala-get-to-safety" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Muhammed Ragab, cousin to Hind Rajab<span class="tag">Chuffed</span></span><a class="entry-link" href="https://chuffed.org/project/132498-help-muhammed-in-gaza" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Nabeela &amp; Hassan &mdash; help feed her children<span class="tag">SpotFund</span></span><a class="entry-link" href="https://www.spotfund.com/story/c7080023-563a-4d91-93d9-b61489c9bd2a" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Eman &amp; her baby girl Reema<span class="tag">GFM</span></span><a class="entry-link" href="https://www.gofundme.com/f/for-the-children-who-starved-to-death-dont-let-them-donw" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Lamis, 14 years old<span class="tag">GFM</span></span><a class="entry-link" href="https://www.gofundme.com/f/help-me-reunite-my-family-from-gaza-a-plea-from-lamees" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Huda &amp; Heba<span class="tag">GFM</span></span><a class="entry-link" href="https://www.gofundme.com/f/please-help-huda-and-her-family" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Samah &amp; her two little girls<span class="tag">Chuffed</span></span><a class="entry-link" href="https://chuffed.org/project/119765-help-samahs-family-in-gaza" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Ahmed the software engineer<span class="tag">Chuffed</span></span><a class="entry-link" href="https://chuffed.org/project/130815-help-ahmed-and-his-family-afford-basic-needs-in-gaza" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Mohammed Ibrahim<span class="tag">GFM</span></span><a class="entry-link" href="https://www.gofundme.com/f/help-mohamed-evacuate-gaza" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Jana, 14 years old<span class="tag">Chuffed</span></span><a class="entry-link" href="https://chuffed.org/project/mohammedrafah" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Abed &amp; family in Rafah<span class="tag">GFM</span></span><a class="entry-link" href="https://www.gofundme.com/f/help-abed-family-in-rafah-survive-the-war" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Sayeid &amp; family, Northern Gaza<span class="tag">GFM</span></span><a class="entry-link" href="https://www.gofundme.com/f/a-palestinian-family-in-northern-gaza" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Mohammed's son Malek &mdash; battling epilepsy<span class="tag">Chuffed</span></span><a class="entry-link" href="https://chuffed.org/project/we-can-save-malek" target="_blank">Donate &rarr;</a></div>
+    </div>
+  </div>
+
+  <!-- SECTION 2 -->
+  <div class="section">
+    <div class="section-label">
+      <span class="section-num">Source 02</span>
+      <div class="section-rule"></div>
+    </div>
+    <h2>@souvenir.de.florence</h2>
+    <p class="section-credit">Aggregated by <a href="https://linktr.ee/souvenir.de.florence" target="_blank">linktr.ee/souvenir.de.florence</a> &mdash; follow and support her work.</p>
+    <div class="entries">
+      <div class="entry"><span class="entry-name">Dr. Abood &amp; his family<span class="tag">GFM</span></span><a class="entry-link" href="https://gofund.me/129ee10b" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Abdullah &mdash; save a Palestinian engineer<span class="tag">Chuffed</span></span><a class="entry-link" href="https://chuffed.org/project/134663-lets-help-abood-build-a-future" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Asem &amp; his medical career<span class="tag">PayPal</span></span><a class="entry-link" href="https://www.paypal.com/paypalme/zoehughesnelson" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Motaz &amp; his medical career<span class="tag">Chuffed</span></span><a class="entry-link" href="https://chuffed.org/project/162297-supporting-motaz-in-his-studies-to-be-a-doctor" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Rawan &amp; the Al-Shawwa family<span class="tag">Chuffed</span></span><a class="entry-link" href="https://chuffed.org/project/rawanshawwa" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Nurse Hamza &amp; his family<span class="tag">Chuffed</span></span><a class="entry-link" href="https://chuffed.org/project/for-the-real-nurse-hamza" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Heba &amp; her family<span class="tag">GFM</span></span><a class="entry-link" href="https://gofund.me/b53776a1" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Aseel, Muhammad &amp; Karaz<span class="tag">GFM</span></span><a class="entry-link" href="https://gofund.me/31548bff" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Sela, Fadi &amp; Yazan<span class="tag">GFM</span></span><a class="entry-link" href="https://gofund.me/107764d0" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Rewaa Mohamed &mdash; cancer patient<span class="tag">GFM</span></span><a class="entry-link" href="https://gofund.me/38eec2b7" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Eslam &amp; Khader<span class="tag">GFM</span></span><a class="entry-link" href="https://gofund.me/cdf57d969" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Basel Samer &amp; his family<span class="tag">Chuffed</span></span><a class="entry-link" href="https://chuffed.org/project/142930-help-basel-and-his-family-get-food-as-soon-as-possible" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Ola, Jannat &amp; family<span class="tag">Chuffed</span></span><a class="entry-link" href="https://chuffed.org/project/please-help-ola-and-her-family-survive-011013700-1756904026" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Nasser Alshawwa &amp; family<span class="tag">Chuffed</span></span><a class="entry-link" href="https://chuffed.org/project/170258-help-nasser-his-family-survive-in-gaza" target="_blank">Donate &rarr;</a></div>
+    </div>
+  </div>
+
+  <!-- SECTION 3 -->
+  <div class="section">
+    <div class="section-label">
+      <span class="section-num">Also</span>
+      <div class="section-rule"></div>
+    </div>
+    <h2>Individual Campaign</h2>
+    <p class="section-credit">The following is a Gaza victim sharing her own story directly.</p>
+    <div class="entries">
+      <div class="entry">
+        <span class="entry-name">@flower._palestine_<small>A Palestinian woman sharing her story and needs directly on Instagram.</small></span>
+        <a class="entry-link" href="https://www.instagram.com/flower._palestine_/" target="_blank">Visit &rarr;</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- SECTION 4 -->
+  <div class="section">
+    <div class="section-label">
+      <span class="section-num">Source 03</span>
+      <div class="section-rule"></div>
+    </div>
+    <h2>@sendlovetopalestine</h2>
+    <p class="section-credit">Aggregated by <a href="https://www.instagram.com/sendlovetopalestine/" target="_blank">@sendlovetopalestine</a>. Verified, alphabetically organized. DM them to be paired with a family for ongoing monthly support.</p>
+    <div class="entries">
+      <div class="entry"><span class="entry-name">Abdullah Elqumbarji &amp; family of 8<small>malnutrition, high blood pressure, kidney disease</small><span class="tag">Chuffed</span></span><a class="entry-link" href="https://chuffed.org/project/125980-help-abdullah-and-his-family" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Abdallah Abu Rida &mdash; 18, supporting family of 5</span><a class="entry-link" href="https://bit.ly/3MVJDpy" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Abood Siam Hamad</span><a class="entry-link" href="https://tinyurl.com/Help-abood" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Adele &amp; her baby Bariq<small>baby starving; sister has type 1 diabetes</small></span><a class="entry-link" href="https://bit.ly/help-nurse-adele" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Afnan &amp; her 2 kids Mofid and Malak<small>runs a school for displaced children in tents</small><span class="tag">Chuffed</span></span><a class="entry-link" href="https://chuffed.org/project/144034-help-afnan-and-her-family-escape-from-the-hell-of-war" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Ahlam &mdash; pregnant, malnourished, fears losing her baby</span><a class="entry-link" href="https://tinyurl.com/help-ahlam" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Ahmad Bader &mdash; 24, family of 6<span class="tag">Chuffed</span></span><a class="entry-link" href="https://www.chuffed.org/project/129870-please-help-ahmad-in-gaza" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Ahmad Qais &amp; 2 brothers &amp; baby nephew<small>Palestinian refugees in Cairo, making $100/month</small></span><a class="entry-link" href="https://bit.ly/Help-Ahmad" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Ahmed Muin &mdash; Gaza Bird Singing<small>music program keeping children's joy alive</small><span class="tag">GFM</span></span><a class="entry-link" href="https://gofund.me/a75a7c04" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Ahmed Altaban &amp; 3 siblings<small>22, helps families transfer aid via crypto</small><span class="tag">GFM</span></span><a class="entry-link" href="https://www.gofundme.com/f/help-ahmed-to-survive-evacuate-gaza" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Alfatt &amp; baby Malak<small>Malak has brain atrophy and malnutrition</small><span class="tag">Instagram</span></span><a class="entry-link" href="https://www.instagram.com/alfat_nizar_/" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Ali Khader &amp; his brother Amir<small>nurse; lost mother, father &amp; sister; still working</small></span><a class="entry-link" href="https://bit.ly/help-nurse-ali" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Ali &amp; Azza &amp; their 3 kids<small>Ali had a stroke in 2018; medication prohibitively expensive</small><span class="tag">Chuffed</span></span><a class="entry-link" href="https://chuffed.org/project/147614-help-azza-and-her-family-survive-the-war-in-gaza" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Amal &amp; her 3 kids Wafa, Abdullah, Mohammed<small>no shelter after home destroyed</small><span class="tag">Chuffed</span></span><a class="entry-link" href="https://chuffed.org/project/130991-save-adeels-two-year-old-son-from-starvation" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Amal El-Najjar (14) &amp; siblings<small>"I will not give up... giving up is not an option when they are my world."</small><span class="tag">GFM</span></span><a class="entry-link" href="https://www.gofundme.com/f/light-in-amals-eyes" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Amal &amp; her sick parents<small>mother has heart and thyroid problems; father elderly and ill</small><span class="tag">Chuffed</span></span><a class="entry-link" href="https://chuffed.org/project/163399-please-help-amal-look-after-her-sick-mother" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Ameed Alshawa &amp; his son Zico<small>former lawyer; home destroyed, job gone</small><span class="tag">GFM</span></span><a class="entry-link" href="https://www.gofundme.com/f/Ameed-Between-Life-and-Hope-Help-Him-Come-Back" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Amani &amp; her 5 kids<small>widowed; baby malnourished; multiple children with health issues</small><span class="tag">GoGetFunding</span></span><a class="entry-link" href="https://gogetfunding.com/save-amany-children-food-medicine-and-care-needed/" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Ayesh Haroun &amp; 2 brothers &amp; sister<small>19; needs back surgery; father in hospice</small><span class="tag">GFM</span></span><a class="entry-link" href="https://www.gofundme.com/f/Help-ayesh-get-medical-treatment" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Azza &amp; her 8 children including newborn<small>both parents have chronic illness; children hungry daily</small><span class="tag">Chuffed</span></span><a class="entry-link" href="https://chuffed.org/project/143669-support-azza-sarours-family-in-gaza" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Basel Diab &amp; his little sisters<small>shot multiple times getting food for starving siblings</small><span class="tag">Chuffed</span></span><a class="entry-link" href="https://chuffed.org/project/132802-help-basel-abudiab-family" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Darin &amp; her baby Larin<small>21-year-old mother; baby crying from hunger; breasts not producing milk due to malnutrition</small><span class="tag">Chuffed</span></span><a class="entry-link" href="https://chuffed.org/project/158608-help-darien-family" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Duaa Alaa &amp; five children including infant<small>6-month-old needs milk and diapers</small><span class="tag">Chuffed</span></span><a class="entry-link" href="https://chuffed.org/project/136967-urgent-help-for-child-need-milk" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Duha Ibrahim &amp; five children<small>displaced 30+ times; baby Lian has rashes; 3-year-old needs tendon surgery</small><span class="tag">Chuffed</span></span><a class="entry-link" href="https://chuffed.org/project/148669-help-ibrahim-feed-his-children-and-rebuild-their-home" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Doha Youssef &amp; twins Yazan &amp; Zain &amp; Yasmine<small>family sleeping in street as of 9/27/25; husband injured</small></span><a class="entry-link" href="https://bit.ly/3L9kQ0u" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Doaa Hanideq &mdash; displaced 15+ times<small>tent with 10 family members; father injured</small></span><a class="entry-link" href="https://bit.ly/help-doaa-save-her-family" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Duaa Saleh &amp; disabled parents<small>studied psychology; cares for physically disabled mother and father</small><span class="tag">Chuffed</span></span><a class="entry-link" href="https://chuffed.org/project/duaa" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Ellen Family &mdash; 6-year-old Ellen<small>displaced 7 times; mother gave birth during the war</small><span class="tag">Chuffed</span></span><a class="entry-link" href="https://chuffed.org/project/help-ellen-and-family" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Eman &amp; her 3 children<small>rare autoimmune disease; treatment costs $400/round; children sleep hungry</small><span class="tag">Chuffed</span></span><a class="entry-link" href="https://chuffed.org/project/130959-help-eman-and-her-family-survive-in-gaza" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Ezz, Nour &amp; their 3 kids including newborn Maria<small>already lost one daughter in the war</small><span class="tag">Chuffed</span></span><a class="entry-link" href="https://chuffed.org/project/134426-ezz-nour-our-chidren-need-you" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Fahed &amp; his 20-person family<small>returned home to find it completely destroyed; living on rubble in a tent</small><span class="tag">Chuffed</span></span><a class="entry-link" href="https://chuffed.org/project/171903-fahed-in-gaza-needs-help-to-take-care-of-his-family" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Farah Srour &amp; her school for displaced children<small>20; runs "Challenge Classes" for kids; featured by Ms. Rachel</small><span class="tag">Chuffed</span></span><a class="entry-link" href="https://chuffed.org/project/133878-support-farahs-education-and-family-in-gaza" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Fatima &mdash; home destroyed, daughter sick<span class="tag">GFM</span></span><a class="entry-link" href="https://www.gofundme.com/f/help-fatima-survive-after-her-homes-destruction" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Fedaa</span><a class="entry-link" href="https://tinyurl.com/Help-fedaa" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Gaza Life Project &mdash; water distribution<small>started by 16-year-old Shahed; $300/day per water truck</small><span class="tag">Chuffed</span></span><a class="entry-link" href="https://chuffed.org/project/149016-gaza-life-project" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Hani &amp; children Ramzy (7) and Rayan (2)<small>former computer programmer; "no food, no water, no safety"</small><span class="tag">Chuffed</span></span><a class="entry-link" href="https://chuffed.org/project/141426-a-plea-from-hani-at-the-heart-of-khan-younis" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Hanan &amp; her children Jihad, Reema, Sama, Abed<small>home destroyed; Instagram closed by Meta 12/13/25</small><span class="tag">Chuffed</span></span><a class="entry-link" href="https://chuffed.org/project/173570-help-hanan-and-her-children" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Haneen &mdash; 31, dreams of having a child<small>underwent IVF; brother martyred, leaving 3-month-old orphan</small><span class="tag">Chuffed</span></span><a class="entry-link" href="https://chuffed.org/project/139382-keep-hope-alive-for-hanin-and-her-family" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Haneen Sharief &mdash; medical student, cares for 3 siblings alone<small>mother in Ramallah for cancer treatment; father unreachable</small></span><a class="entry-link" href="https://steunactie.nl/fundraiser/a-mother-to-her-siblings-a-student-fighting-to-survive-haneen-needs-you/-55960" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Hawand, Mohammed &amp; kids Raed &amp; Widad<small>Raed needs nose surgery to breathe; father has chronic spine disease</small><span class="tag">GFM</span></span><a class="entry-link" href="https://www.gofundme.com/f/a-familys-fight-against-hunger-and-hardship" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Hazem Nahed &mdash; 20, lost his right eye to cancer at age 2<small>provider for family of 5; needs yearly cancer testing he can't access</small><span class="tag">SpotFund</span></span><a class="entry-link" href="https://www.spotfund.com/story/77415090-2d30-41e5-8a7a-cd45b3a15b06" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Hedaya Subhi &amp; 3 children<small>husband trapped in Northern Gaza; son injured during escape</small></span><a class="entry-link" href="http://bit.ly/44sJ4tr" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Ibrahim &amp; his six siblings<small>24; primary supporter for parents, grandparents, siblings, and newborn niece</small><span class="tag">Chuffed</span></span><a class="entry-link" href="https://chuffed.org/project/givepeacetoibrahim" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Iman &amp; baby Rima<small>22; lost son Kenan (2) under rubble; baby Rima has no teeth due to malnutrition</small><span class="tag">GFM</span></span><a class="entry-link" href="https://www.gofundme.com/f/for-the-children-who-starved-to-death-dont-let-them-donw" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Israa &amp; her 4 young kids<small>3-year-old Adam repeatedly injured; family has lost 20 members</small></span><a class="entry-link" href="https://bit.ly/help-esraa" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Jehad Abu Diab &mdash; water distribution, Deir al-Balah<small>provides water to 1,000+ residents</small><span class="tag">GFM</span></span><a class="entry-link" href="https://www.gofundme.com/f/Rescue-AbuDiab-Family" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Jehad Abu Diab &mdash; eye surgery evacuation<small>hairs grow inside his eye since birth; worsened under genocide</small><span class="tag">Chuffed</span></span><a class="entry-link" href="https://chuffed.org/project/132625-help-me-to-evacuate-and-save-me-and-my-family" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Khaled Asaad &amp; family of 5<small>20; elderly parents, sick relative, younger siblings</small><span class="tag">GFM</span></span><a class="entry-link" href="https://www.gofundme.com/f/qrd6pz-help-khaleds-family-survive-in-gaza" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Lana &amp; her newborn &amp; little girl<small>lost home and university</small></span><a class="entry-link" href="https://bit.ly/save-lanas-newborn-baby" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Layla Alyan &amp; 2 children &amp; 4 grandchildren<small>eldest son martyred in front of her; husband has DVT and high blood pressure</small><span class="tag">Chuffed</span></span><a class="entry-link" href="https://chuffed.org/project/163100-helping-a-grieving-mother-survive-with-her-family" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Lina Mosa &mdash; 22, sole survivor of family massacre<small>lost 35 family members in one attack on February 27, 2024</small><span class="tag">GFM</span></span><a class="entry-link" href="https://www.gofundme.com/f/help-lina-rebuild-her-life-and-home" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Lolo Fares &amp; her five children<span class="tag">Chuffed</span></span><a class="entry-link" href="https://chuffed.org/project/help-lolo-and-family" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Lubna &mdash; lost two pregnancies due to bombing<small>"I wish to feel the feeling of motherhood again, but in another country."</small><span class="tag">Chuffed</span></span><a class="entry-link" href="https://chuffed.org/project/152092-help-mohammed-and-lubna-evacuate-to-safety" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Luna Water Project &mdash; $550 sends 4,000L of clean water<span class="tag">Instagram</span></span><a class="entry-link" href="https://www.instagram.com/luna.water.project/" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Mahmoud Abushana &amp; family of 14<small>18; family sleeping in street with no tent as of 9/25/25</small><span class="tag">GFM</span></span><a class="entry-link" href="https://www.gofundme.com/f/6jjy98-help-me-my-family" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Mahmoud Foura &amp; 5 children<small>daughter Warda (13) battling cancer; son Wassim walks hours for firewood</small><span class="tag">Chuffed</span></span><a class="entry-link" href="https://chuffed.org/project/help-a-family-of-7-survive-in-gaza" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Manal Honif &amp; her baby<small>"I am the mother of a small child. I hope he finds safety."</small><span class="tag">GFM</span></span><a class="entry-link" href="https://gofund.me/ea5a60f4" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Manar &amp; children Youssef, Dana, Saif<small>all three children suffering acute malnutrition; Dana hospitalized</small><span class="tag">Chuffed</span></span><a class="entry-link" href="https://chuffed.org/project/167953-help-to-provide-safety-stability-and-hope" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Manar Abodd &amp; daughter Lama<small>husband and two younger children killed on baby's 1st birthday; severe burns</small><span class="tag">GFM</span></span><a class="entry-link" href="https://www.gofundme.com/f/help-manar-and-her-surviving-daughter-get-medical-evacuation" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Manar &amp; her 5 children including twins under 2<small>husband missing since injury; sole provider</small><span class="tag">Chuffed</span></span><a class="entry-link" href="https://chuffed.org/project/manar-and-her-5-children-need-your-support" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Manwa Qasim &amp; baby Qasim<small>husband partially paralyzed; baby hospitalized multiple times for malnutrition</small><span class="tag">Chuffed</span></span><a class="entry-link" href="https://chuffed.org/project/143802-help-manwas-family-in-gaza" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Marah Fujo &amp; her surviving little brother<small>brother kidnapped and killed; father lost a leg</small><span class="tag">Chuffed</span></span><a class="entry-link" href="https://chuffed.org/project/127340-save-marah-and-her-family-from-genocide-in-gaza" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Moayad Al-Ajouri &amp; 2 young children<small>father deceased; mother's condition worsening without medication</small></span><a class="entry-link" href="https://bit.ly/4atWus3" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Mofida &amp; children Habiba &amp; Abdulrahman<small>Habiba needs open heart surgery in Egypt; baby always crying from hunger</small><span class="tag">Chuffed</span></span><a class="entry-link" href="https://chuffed.org/project/help-habibas-baby-survive" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Mohammed Alnjr &mdash; shot getting food for family<small>"I try to make them laugh, even if I feel like crying."</small><span class="tag">Chuffed</span></span><a class="entry-link" href="https://chuffed.org/project/mohammedallnajar" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Mohammed Alshourbasy &amp; brother<small>sole provider; brother needs two medical operations</small><span class="tag">Chuffed</span></span><a class="entry-link" href="https://chuffed.org/project/136657-the-story-of-mohammed-al-shorbasy-resilience-in-the-face-of-the-impossible" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Mohammad Ayman &amp; family of 10<small>sister died 9/9/25; brother badly wounded</small><span class="tag">SpotFund</span></span><a class="entry-link" href="https://www.spotfund.com/story/89aeef5e-4eb5-4d6e-82ab-2b5a282b7ccd" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Mohammed Hamada &amp; family of 7<small>forced from North to South; needs $3,000 for tent, transport, and food</small><span class="tag">GFM</span></span><a class="entry-link" href="https://www.gofundme.com/f/gx3fe-help-mohammeds-family-escape-gaza" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Mohammed Hegazy &amp; 7 family members<small>22; home destroyed; one meal a day due to illegal blockade</small><span class="tag">GFM</span></span><a class="entry-link" href="https://www.gofundme.com/f/help-mohamed-and-his-family-in-gaza" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Mohammed Maher &amp; 4 siblings<small>23; sole provider since father died of cancer without access to treatment</small><span class="tag">GFM</span></span><a class="entry-link" href="https://www.gofundme.com/f/help-mohammeds-family-escape-war-in-gaza-xwu2q" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Mohammed Swaisi &amp; siblings &amp; nieces<small>father killed getting supplies; brother detained 25 days, needs foot surgery</small><span class="tag">Chuffed</span></span><a class="entry-link" href="https://chuffed.org/project/144652-support-swaisi-family-in-gaza" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Mohammed &amp; 5 siblings &mdash; displaced 12 times<small>21; father hospitalized after psychological breakdown</small><span class="tag">Chuffed</span></span><a class="entry-link" href="https://chuffed.org/project/144191-help-mohammed-support-his-family-little-brother-sister" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Mohammad &amp; 4 kids Hamza, Salman, Nahed, Kareem<small>trapped in North Gaza; son asks "why don't we have a home?"</small><span class="tag">Chuffed</span></span><a class="entry-link" href="https://chuffed.org/project/131554-our-childhood-buried-under-the-rubble-help-us-survive" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Mohammed Rajab &amp; family of 12<small>24; went 12 days without food; supporting newborn baby</small><span class="tag">Chuffed</span></span><a class="entry-link" href="https://chuffed.org/project/132498-help-muhammed-in-gaza" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Mona Abo Hamda &mdash; personal campaign<small>26; digital marketer running mutual aid while her own brothers need help</small><span class="tag">GFM</span></span><a class="entry-link" href="https://gofund.me/85c4610e" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Mona Abo Hamda &mdash; mutual aid fund<small>blankets, flour, food, charcoal, sanitary products, baby milk</small><span class="tag">Chuffed</span></span><a class="entry-link" href="https://chuffed.org/fundraiser/32130" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Mona's cousin Zeina &mdash; 6 years old<small>"Children in Gaza deserve not only life, but a chance to play."</small><span class="tag">Chuffed</span></span><a class="entry-link" href="https://chuffed.org/project/139482-help-zeina-and-her-mother-from-gaza-survive" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Mounia AlSaddoudi &amp; 3 young kids<small>husband's barbershop destroyed; brother killed under rubble</small></span><a class="entry-link" href="https://tinyurl.com/yck9242j" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Nada (19) &amp; five siblings<small>home destroyed; displaced across Deir al-Balah, Khan Younis, Gaza City</small><span class="tag">DonorBox</span></span><a class="entry-link" href="https://donorbox.org/nada-s-dream" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Nada Nahed &mdash; brother has cancer<small>needs yearly artificial eye fitting; cannot access treatment</small><span class="tag">GFM</span></span><a class="entry-link" href="https://www.gofundme.com/f/urgent-aid-for-nadas-brother-who-has-cancer" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Nader Abu Anwar &amp; children Anwar, Yusuf, Lina<small>electrical engineer; home destroyed; raising three children alone</small><span class="tag">GFM</span></span><a class="entry-link" href="https://www.gofundme.com/f/support-a-familys-fight-for-survival-in-gaza" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Nadia &amp; 3 sisters &amp; elderly parents<small>sole provider for entire family; parents both ill</small><span class="tag">Chuffed</span></span><a class="entry-link" href="https://chuffed.org/project/130317-save-her-familys-only-support-save-nadia" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Noor (22, widowed) &amp; 2 kids Fares &amp; Eileen<small>husband martyred in hospital after foot blown off getting food</small><span class="tag">PayPal + Chuffed</span></span><a class="entry-link" href="https://www.paypal.me/NoorGhad25" target="_blank">PayPal &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Omar &mdash; 20, pharmacy student<small>home destroyed; old campaign blocked; lost all prior funds</small><span class="tag">GiveSendGo</span></span><a class="entry-link" href="https://www.givesendgo.com/GF4DQ" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Omar Shmali (15) &amp; family of 8<small>three small children; grandfather broke his leg</small><span class="tag">Chuffed</span></span><a class="entry-link" href="https://chuffed.org/project/123534-help-omars-family-in-gaza" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Rasha Sobhi &amp; four children<small>youngest Amir is 5; campaign had no donations when first published</small><span class="tag">Chuffed</span></span><a class="entry-link" href="https://chuffed.org/project/142776-help-rasha-and-her-children-survive" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Reham Al-Farani &amp; 4 siblings including Rose (4)<small>was studying nursing; now dreams of feeding her family</small><span class="tag">GFM</span></span><a class="entry-link" href="https://www.gofundme.com/f/be-a-support-for-gaza-every-donation-from-you-is-a-hope-fo" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Sabreen &amp; 3 kids &amp; newborn<small>6 months pregnant; needs heparin to stabilize pregnancy; lost eldest son</small><span class="tag">Chuffed</span></span><a class="entry-link" href="https://chuffed.org/project/162277-sabreena-and-her-children-need-help" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Saif Al-Din Al-Hout &amp; family of 9<small>25; was furnishing an apartment for his wedding when home was bombed</small><span class="tag">Chuffed</span></span><a class="entry-link" href="https://chuffed.org/project/129354-assisting-young-saif-to-support-a-family-of-9" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Saif Al-Din Hasan Honif &amp; 3 kids<small>photography studio destroyed</small><span class="tag">GFM</span></span><a class="entry-link" href="https://gofund.me/ebf2f8a1" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Saja Rafiq &amp; son Mahmoud (2)<small>husband martyred when Mahmoud was 11 months old</small><span class="tag">Chuffed</span></span><a class="entry-link" href="https://chuffed.org/project/148712-help-2-year-old-mahmoud-survive-the-genocide-in-gaza" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Samah &amp; four children<small>oldest is 10; youngest is 5; growing weaker daily from malnutrition</small></span><a class="entry-link" href="http://bit.ly/45UbNbA" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Samaher AlAthamneh &amp; five children<small>lives in a partially destroyed home; searching daily for food and firewood</small></span><a class="entry-link" href="https://tinyurl.com/Help-Samahir" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Sami (18) &amp; five siblings<small>trapped in North Gaza under relentless bombing as of 9/30/25</small><span class="tag">Chuffed</span></span><a class="entry-link" href="https://chuffed.org/project/145105-i-am-sami" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Samira, Mohammed &amp; baby Dima (2)<small>Samira studying nursing; tuition $700/semester</small></span><a class="entry-link" href="https://tinyurl.com/baby-dima" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Sara Mohammed &amp; 3 kids<small>husband and 2 children martyred; remaining children starving in tents</small><span class="tag">GFM</span></span><a class="entry-link" href="https://gofund.me/c9bcae63" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Seera Al-Najjar &mdash; 16, scored 98%, dreams of being a doctor<small>walks to school on an empty stomach</small><span class="tag">GFM</span></span><a class="entry-link" href="https://www.gofundme.com/f/help-seera-become-a-doctor-not-a-war-victim" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Seraj, Yosra &amp; baby Yazan<small>Yazan born under open sky raining missiles; no hospital, no doctors</small><span class="tag">GFM</span></span><a class="entry-link" href="https://www.gofundme.com/f/feaqhd-a-woman-and-her-babys-journey-out-of-the-genocide" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Shahed &amp; brothers Uday &amp; Joud &amp; critically injured father<small>father's spleen removed; brothers starving</small><span class="tag">Chuffed</span></span><a class="entry-link" href="https://chuffed.org/project/154060-urgent-appeal-for-shahed-and-her-family-in-gaza" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Shahed</span><a class="entry-link" href="https://tinyurl.com/Help-shahd" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Shaima Deeb &amp; 3 children<small>Mohammed (7) now sees blood everywhere due to trauma</small><span class="tag">Chuffed</span></span><a class="entry-link" href="https://chuffed.org/project/167031-help-shaimaa-and-her-children-survive-in-gaza" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Shaima &amp; 2 sisters<small>three sisters pulled from rubble; fractured pelvis, bruised ribs</small><span class="tag">GFM</span></span><a class="entry-link" href="https://www.gofundme.com/f/your-donation-means-a-better-future-for-us" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Shima &amp; family, North Gaza<small>severe malnutrition; can't afford food or rent even after "ceasefire"</small><span class="tag">Chuffed</span></span><a class="entry-link" href="https://chuffed.org/project/144185-help-shima-and-family-survive" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Sohaib</span><a class="entry-link" href="https://shorturl.at/fup5O" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Tala Ahmed &amp; 9 children<small>lived in their new home exactly one day before the massacres began</small><span class="tag">Chuffed</span></span><a class="entry-link" href="https://chuffed.org/project/162352-help-tala-rebuild-her-home" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Tasneem &amp; her 3 children<small>bombs have fallen right beside them; tent flooded with freezing water</small></span><a class="entry-link" href="https://tinyurl.com/help-tasneem" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Umm Karim Al-Arja &amp; 3 kids under 6<small>baby Massa (2.5) has been hungry her whole life</small><span class="tag">PayPal</span></span><a class="entry-link" href="https://www.paypal.com/donate/?hosted_button_id=UD4URLZ823VAQ" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Wafa (21, nursing student) &amp; family of 8<small>both parents have heart failure; caring for young siblings too</small><span class="tag">Chuffed</span></span><a class="entry-link" href="https://chuffed.org/project/135520-save-wafaa-family-of-8-from-starvation-in-gaza" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Wahid Alghalban &mdash; 12, lost arm, leg, and eye<small>medically evacuated to USA in April 2025; family remains in Gaza</small><span class="tag">Chuffed</span></span><a class="entry-link" href="https://chuffed.org/project/134727-help-wahids-family-survive-to-be-reunited" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Walaa (24) &amp; daughter Lana (3)<small>"Every day is a struggle for survival &mdash; not just for me, but for my innocent little girl."</small><span class="tag">PayPal</span></span><a class="entry-link" href="https://www.paypal.com/donate?campaign_id=PPT7QPW9CPWRY" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Waleed Abu Hassira &mdash; 24<small>father hospitalized after psychological breakdown</small><span class="tag">GFM</span></span><a class="entry-link" href="https://gofund.me/9813c1e8" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Yahya Arif Abu Odeh &amp; 4 children<small>trapped in North Gaza; brother still under rubble</small><span class="tag">GoGetFunding</span></span><a class="entry-link" href="https://gogetfunding.com/help-yahya-provide-for-his-family-in-the-middle-of-the-aggression/" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Yasmine &amp; her 5 children<small>"Yamen wants to be an engineer so he can build me a house to replace the one we lost."</small><span class="tag">Chuffed</span></span><a class="entry-link" href="https://chuffed.org/project/help-yasmeens-family-in-gaza" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Yazan &mdash; 18, mutual aid organizer<small>coordinates @bridge.of.solidarity; "I have dreams of being an architect."</small></span><a class="entry-link" href="https://tinyurl.com/Support-Yazan" target="_blank">Donate &rarr;</a></div>
+      <div class="entry"><span class="entry-name">Zakaria &mdash; sole survivor of his brothers<small>rare retinal disease; at risk of losing eyesight; needs urgent surgery</small></span><a class="entry-link" href="https://bit.ly/help-zakaria" target="_blank">Donate &rarr;</a></div>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  <div class="footer-inner">
+    <div class="footer-left">
+      This document contains <strong>no personal data</strong> about the compiler. All campaigns were sourced from publicly shared mutual aid lists. The compiler does not own or take credit for any of this work. Please share freely and without restriction. <br><br>Compiled March 2026.
+    </div>
+    <div class="footer-credits">
+      <strong style="color: var(--ink-soft); font-size:0.85em; letter-spacing:0.08em; text-transform:uppercase;">Original Aggregators</strong>
+      <a href="https://linktr.ee/sophiedituri" target="_blank">@sophiedituri</a>
+      <a href="https://linktr.ee/souvenir.de.florence" target="_blank">@souvenir.de.florence</a>
+      <a href="https://www.instagram.com/flower._palestine_/" target="_blank">@flower._palestine_</a>
+      <a href="https://www.instagram.com/sendlovetopalestine/" target="_blank">@sendlovetopalestine</a>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
